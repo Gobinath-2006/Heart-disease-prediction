@@ -1,7 +1,6 @@
 import streamlit as st
 import pickle
 import numpy as np
-import pandas as pd
 
 # Page config
 st.set_page_config(page_title="Heart Disease Prediction", layout="centered")
@@ -9,12 +8,9 @@ st.set_page_config(page_title="Heart Disease Prediction", layout="centered")
 st.title("❤️ Heart Disease Prediction App")
 st.write("Enter patient details to predict heart disease risk")
 
-# Load model
+# Load trained model
 with open("Heart disease_model.pkl", "rb") as file:
     model = pickle.load(file)
-
-# Load dataset (only for column reference)
-df = pd.read_csv("heart.csv")
 
 # Input fields
 age = st.number_input("Age", min_value=1, max_value=120, value=45)
@@ -31,7 +27,7 @@ slope = st.selectbox("Slope (0–2)", [0, 1, 2])
 ca = st.selectbox("Number of Major Vessels (0–4)", [0, 1, 2, 3, 4])
 thal = st.selectbox("Thal (0 = normal, 1 = fixed defect, 2 = reversible)", [0, 1, 2])
 
-# Predict button
+# Prediction
 if st.button("Predict"):
     input_data = np.array([[age, sex, cp, trestbps, chol, fbs, restecg,
                              thalach, exang, oldpeak, slope, ca, thal]])
